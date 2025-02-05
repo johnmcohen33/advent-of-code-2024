@@ -1,4 +1,8 @@
 """
+Day 01 Part 01, Advent of Code 2024 in Python
+
+Link to Site: https://adventofcode.com/2024/day/1
+
 Upon pouring into the office, everyone confirms that the Chief Historian is indeed nowhere to be found. Instead, the Elves discover an assortment of notes and lists of historically significant locations! This seems to be the planning the Chief Historian was doing before he left. Perhaps these notes can be used to determine which locations to search?
 
 Throughout the Chief's office, the historically significant locations are listed not by name but by a unique number called the location ID. To make sure they don't miss anything, The Historians split into two groups, each searching the office and trying to create their own complete list of location IDs.
@@ -119,15 +123,11 @@ def advent_of_code_day_1_part_1_v2(file_path: str) -> int:
 
 # Excute functions:
 
-# Pt. 1:
-
-real_file_path = "./data/day_1_input.txt"
-dummy_file_path = "./data/day_1_input_dummy.txt"
+real_file_path = "./data/day01-pt01-input-real.txt.txt"
+dummy_file_path = "./data/day01-pt01-input-dummy.txt.txt"
 
 res_v1 = advent_of_code_day_1_part_1_v1(real_file_path)
 res_v2 = advent_of_code_day_1_part_1_v2(real_file_path)
 
 print("res_v1:", res_v1)
 print("res_v2:", res_v2)
-
-# Pt. 2
