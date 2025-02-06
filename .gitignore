@@ -1,6 +1,5 @@
 env/
 .pytest_cache/
 .benchmarks/
+**/__pycache__/
 .pymon
-__pycache__/
-*.pyc
