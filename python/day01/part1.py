@@ -33,48 +33,16 @@ To find the total distance between the left list and the right list, add up the 
 
 Your actual left and right lists contain many location IDs. What is the total distance between your lists?
 """
-
-from typing import Callable, List, Tuple
+from total_distance_calculator import TotalDistanceCalculator
 from helpers import create_lists_from_file_v1, create_lists_from_file_v2
-
-# Define a type alias for injectable for clarity.
-ListCreator = Callable[[str], Tuple[List[int], List[int]]]
-
-class TotalDistanceCalculator:
-    
-    def __init__(self, list_creator: ListCreator = create_lists_from_file_v2):
-        """
-        :param list_creator: A function that takes a file path and returns a tuple of two lists of integers.
-                             Defaults to the v1 implementation.
-        """
-        self.list_creator = list_creator
-
-    def get_total_distance(self, file_path: str) -> int:
-        """
-        given a filepath, find the total distance between the left and right lists in this file path.
-        this function will load each list into memory, sort each respective list, and compute the summated distance
-        between them.
-
-        returns: summated distance between the two lists.
-        """
-
-        left, right = self.list_creator(file_path)
-        
-        # sort the lists
-        left.sort(), right.sort()
-
-        # return the summation of distances between two lists
-        return sum(abs(x - y) for x, y in zip(left, right))
-
-# Excute functions:
 
 real_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day01-pt01-input-real.txt"
 dummy_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day01-pt01-input-dummy.txt"
 tDistanceCalc_v1 = TotalDistanceCalculator(create_lists_from_file_v1)
 tDistanceCalc_v2 = TotalDistanceCalculator(create_lists_from_file_v2)
 
-res_v1 = tDistanceCalc_v1.get_total_distance(real_file_path)
-res_v2 = tDistanceCalc_v2.get_total_distance(real_file_path)
+res_v1 = tDistanceCalc_v1.calculate(real_file_path)
+res_v2 = tDistanceCalc_v2.calculate(real_file_path)
 
 print("res_v1:", res_v1)
 print("res_v2:", res_v2)

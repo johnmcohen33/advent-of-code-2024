@@ -1,5 +1,5 @@
 import pytest
-from part1 import TotalDistanceCalculator
+from total_distance_calculator import TotalDistanceCalculator
 
 @pytest.fixture(scope="class")
 def total_distance_calculator() -> TotalDistanceCalculator:
@@ -35,7 +35,7 @@ class TestDay01:
         3   9
         3   3"""
         file_path = dummy_file_factory(good_data)
-        result = total_distance_calculator.get_total_distance(file_path)
+        result = total_distance_calculator.calculate(file_path)
         assert result == EXPECTED_DISTANCE
 
     def test_d01_p01_trailing_whitespace(self, dummy_file_factory, total_distance_calculator):
@@ -52,5 +52,5 @@ class TestDay01:
         """ # notice the extra indent here.
         EXPECTED_DISTANCE = 11
         file_path = dummy_file_factory(trailing_whitespace_data)
-        result = total_distance_calculator.get_total_distance(file_path)
+        result = total_distance_calculator.calculate(file_path)
         assert result == EXPECTED_DISTANCE
