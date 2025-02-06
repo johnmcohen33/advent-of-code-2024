@@ -1,12 +1,12 @@
 import pytest
-from part1 import Part1
+from part1 import TotalDistanceCalculator
 
 @pytest.fixture(scope="class")
-def part1() -> Part1:
+def total_distance_calculator() -> TotalDistanceCalculator:
     """
     Fixture that creates a Part1 instance to be shared by tests.
     """
-    return Part1()
+    return TotalDistanceCalculator() # uses the default list creator
 
 @pytest.fixture
 def dummy_file_factory(tmp_path):
@@ -22,7 +22,7 @@ def dummy_file_factory(tmp_path):
 
 class TestDay01:
 
-    def test_advent_of_code_day_1_part_1_v1(self, dummy_file_factory, part1):
+    def test_d01_p01_good_data(self, dummy_file_factory, total_distance_calculator):
         """
         Test version 1 of the solution using the dummy file.
         """
@@ -35,10 +35,10 @@ class TestDay01:
         3   9
         3   3"""
         file_path = dummy_file_factory(good_data)
-        result = part1.advent_of_code_day_1_part_1_v1(file_path)
+        result = total_distance_calculator.get_total_distance(file_path)
         assert result == EXPECTED_DISTANCE
 
-    def test_advent_of_code_day_1_part_1_v1_trailing_whitespace(self, dummy_file_factory, part1):
+    def test_d01_p01_trailing_whitespace(self, dummy_file_factory, total_distance_calculator):
         """
         Test version 1 of the solution using the dummy file with trailing whitespace.
         """
@@ -50,6 +50,7 @@ class TestDay01:
         3   9
         3   3
         """ # notice the extra indent here.
+        EXPECTED_DISTANCE = 11
         file_path = dummy_file_factory(trailing_whitespace_data)
-        with pytest.raises(IndexError):
-            part1.advent_of_code_day_1_part_1_v1(file_path)
+        result = total_distance_calculator.get_total_distance(file_path)
+        assert result == EXPECTED_DISTANCE

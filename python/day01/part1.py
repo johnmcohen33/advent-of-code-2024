@@ -34,9 +34,22 @@ To find the total distance between the left list and the right list, add up the 
 Your actual left and right lists contain many location IDs. What is the total distance between your lists?
 """
 
-class Part1:
+from typing import Callable, List, Tuple
+from helpers import create_lists_from_file_v1, create_lists_from_file_v2
 
-    def advent_of_code_day_1_part_1_v1(self, file_path: str) -> int:
+# Define a type alias for injectable for clarity.
+ListCreator = Callable[[str], Tuple[List[int], List[int]]]
+
+class TotalDistanceCalculator:
+    
+    def __init__(self, list_creator: ListCreator = create_lists_from_file_v2):
+        """
+        :param list_creator: A function that takes a file path and returns a tuple of two lists of integers.
+                             Defaults to the v1 implementation.
+        """
+        self.list_creator = list_creator
+
+    def get_total_distance(self, file_path: str) -> int:
         """
         given a filepath, find the total distance between the left and right lists in this file path.
         this function will load each list into memory, sort each respective list, and compute the summated distance
@@ -44,93 +57,24 @@ class Part1:
 
         returns: summated distance between the two lists.
         """
-        try:
-            with open(file_path, 'r') as file:
-                data = file.read()
-                line_by_line_data = data.split('\n')
-                left, right = ([int(line.split()[0]) for line in line_by_line_data],
-                            [int(line.split()[1]) for line in line_by_line_data])
-                
-                # sort the lists
-                left.sort(), right.sort()
 
-                # i/o to get data into two lists
-                # Check preconditions: for instance, the lists should be of the same length.
-                if len(left) != len(right):
-                    raise ValueError("Both lists must have the same number of elements.")
-
-                # return the summation of distances between two lists
-                return sum(abs(x - y) for x, y in zip(left, right))
-
-        except FileNotFoundError as fe:
-            raise FileNotFoundError("File not found.") from fe
-        except ValueError as ve:
-            raise ValueError("Lists could not be parsed in their current format.") from ve
-        except TypeError as te:
-            # If a non-numeric value is encountered, a TypeError may be raised.
-            raise TypeError("Both lists must contain numbers.") from te
-        except IndexError as ie:
-            # TODO: Is this a bad error? Should we just fix this for the user?
-            raise IndexError("Ensure the list does not have whitespace trailing the file.") from ie
-
-    def advent_of_code_day_1_part_1_v2(self, file_path: str) -> int:
-        """
-        Reads a file where each non-empty line contains exactly two integers separated by whitespace.
-        It collects the left and right numbers into separate lists, sorts both lists, and returns the
-        sum of the absolute differences between corresponding elements.
+        left, right = self.list_creator(file_path)
         
-        Args:
-            file_path: The path to the input file.
-        
-        Returns:
-            The sum of the absolute differences between corresponding integers in the sorted lists.
-        
-        Raises:
-            FileNotFoundError: If the file does not exist.
-            ValueError: If a line does not contain exactly two integer values or conversion fails.
-        """
-        try:
-            with open(file_path, 'r') as file:
-                lines = [line.strip() for line in file if line.strip()]
-            
-                left, right = [], []
-                
-                # Process each line
-                for line in lines:
-                    parts = line.split()
-                    if len(parts) != 2:
-                        raise ValueError(f"Line does not contain exactly two values: '{line}'")
-                    
-                    try:
-                        left_val = int(parts[0])
-                        right_val = int(parts[1])
-                    except ValueError as ve:
-                        raise ValueError(f"Could not convert values to int in line: '{line}'") from ve
-                    
-                    left.append(left_val)
-                    right.append(right_val)
+        # sort the lists
+        left.sort(), right.sort()
 
-                    # Although both lists are built from the same source, it's safe to check their lengths.
-                    if len(left) != len(right):
-                        raise ValueError("Parsed lists have different lengths.")
-
-                left.sort()
-                right.sort()
-
-                # Calculate and return the sum of absolute differences between corresponding elements.
-                return sum(abs(l - r) for l, r in zip(left, right))
-
-        except FileNotFoundError as fe:
-            raise FileNotFoundError(f"File not found: {file_path}") from fe
+        # return the summation of distances between two lists
+        return sum(abs(x - y) for x, y in zip(left, right))
 
 # Excute functions:
 
 real_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day01-pt01-input-real.txt"
 dummy_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day01-pt01-input-dummy.txt"
-part1 = Part1()
+tDistanceCalc_v1 = TotalDistanceCalculator(create_lists_from_file_v1)
+tDistanceCalc_v2 = TotalDistanceCalculator(create_lists_from_file_v2)
 
-res_v1 = part1.advent_of_code_day_1_part_1_v1(real_file_path)
-res_v2 = part1.advent_of_code_day_1_part_1_v2(real_file_path)
+res_v1 = tDistanceCalc_v1.get_total_distance(real_file_path)
+res_v2 = tDistanceCalc_v2.get_total_distance(real_file_path)
 
 print("res_v1:", res_v1)
 print("res_v2:", res_v2)
