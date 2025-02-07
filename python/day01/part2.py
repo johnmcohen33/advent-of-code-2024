@@ -34,15 +34,15 @@ So, for these example lists, the similarity score at the end of this process is 
 Once again consider your left and right lists. What is their similarity score?
 """
 
-class SimilarityScoreCalculator:
+from similarity_score_calculator import SimilarityScoreCalculator
+from helpers import create_lists_from_file_v1, create_lists_from_file_v2
 
-    def get_score(self, file_path: str):
-        return
-    
 real_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day01-pt01-input-real.txt"
 dummy_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day01-pt01-input-dummy.txt"
-similarityScoreCalculator = SimilarityScoreCalculator()
 
-res_v1 = similarityScoreCalculator.get_score(real_file_path)
+similarityScoreCalculator = SimilarityScoreCalculator(create_lists_from_file_v2)
+list1, list2 = similarityScoreCalculator.generate_list(real_file_path)
+
+res_v1 = similarityScoreCalculator.calculate(list1, list2)
 
 print("res_v1:", res_v1)

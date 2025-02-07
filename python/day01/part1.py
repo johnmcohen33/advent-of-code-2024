@@ -38,11 +38,14 @@ from helpers import create_lists_from_file_v1, create_lists_from_file_v2
 
 real_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day01-pt01-input-real.txt"
 dummy_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day01-pt01-input-dummy.txt"
+
 tDistanceCalc_v1 = TotalDistanceCalculator(create_lists_from_file_v1)
 tDistanceCalc_v2 = TotalDistanceCalculator(create_lists_from_file_v2)
 
-res_v1 = tDistanceCalc_v1.calculate(real_file_path)
-res_v2 = tDistanceCalc_v2.calculate(real_file_path)
+list1, list2 = tDistanceCalc_v1.generate_list(real_file_path)
+
+res_v1 = tDistanceCalc_v1.calculate(list1, list2)
+res_v2 = tDistanceCalc_v2.calculate(list1, list2)
 
 print("res_v1:", res_v1)
 print("res_v2:", res_v2)

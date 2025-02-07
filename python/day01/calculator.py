@@ -12,6 +12,12 @@ class CalculatorBase:
         """
         self.list_generator = list_generator
     
+    def generate_list(self, file_path: str) -> tuple[List[int], List[int]]:
+        """
+        Based method for generating a list from a file_path. Should be ubiquitous across calculators.
+        """
+        return self.list_generator(file_path)
+    
     def calculate(self, list1: List[int], list2: List[int]) -> float:
         """
         Abstract method to calculate the score based on the lists.
