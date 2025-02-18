@@ -1,7 +1,6 @@
 from safety_level_checker_harsh import SafetyLevelCheckerHarsh
 from safety_level_checker_forgiving import SafetyLevelCheckerForgiving
 
-
 if __name__=="__main__":        
     dummy_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day02-pt01-input-dummy.txt"
     real_file_path = f"/Users/johncohen/Documents/Documents/Job_Hunt_2025/SE_Job_Hunt/advent-of-code-2024/data/day02-pt01-input-real.txt"
